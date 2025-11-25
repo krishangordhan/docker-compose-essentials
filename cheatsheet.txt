@@ -1,0 +1,187 @@
+*****************************************************
+*** 02-01 Comparing Docker Compose vs. Dockerfile ***
+*****************************************************
+
+cd development
+
+docker build -t my-wp-image:latest .
+
+docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=example -e MYSQL_DATABASE=wordpress -e MYSQL_PASSWORD=example mysql:latest
+
+docker run -d --name wordpress-container -e WORDPRESS_DB_HOST=mysql-container -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=example -e WORDPRESS_DB_NAME=wordpress -p 8080:80 --link mysql-container:mysql my-wp-image:latest
+
+docker compose up -d
+
+docker compose down
+
+************************************************
+*** 02-02 Learning YAML configuration basics ***
+************************************************
+
+https://www.yamllint.com/
+
+*******************************
+*** 02-03 Defining services ***
+*******************************
+
+cd production
+
+docker compose up -d 
+
+***************************************
+*** 02-04 Configuring build options ***
+***************************************
+
+https://docs.docker.com/get-started/docker-concepts/building-images/multi-stage-builds/
+
+cd develoopment
+
+docker compose up -d
+
+*************************************************
+*** 02-05 Using basic Docker Compose commands ***
+*************************************************
+
+https://docs.docker.com/reference/cli/docker/compose/
+
+cd development
+
+docker compose up
+
+Ctrl+C
+
+docker compose up --help
+
+docker compose up -d
+
+docker compose down
+
+docker compose up --build
+
+docker compose up --force-recreate
+
+cd development
+
+docker compose down -t 30
+
+docker compose up -d
+
+docker compose stop
+
+docker compose start
+
+docker compose stop -t 5
+
+docker compose start wordpress db
+
+docker compose restart
+
+docker compose restart wordpress db
+
+docker compose restart -t 10
+
+docker compose ps
+
+docker compose ps -a
+
+docker compose ps --services
+
+docker compose ps --format "table {{.Name}}\t{{.State}}\t{{.Ports}}"
+
+https://docs.docker.com/go/formatting/
+
+docker compose ps --format '{{json .}}'
+
+https://jsonformatter.org/
+
+docker compose ps --format "table {{.ID}}\t{{.Name}}\t{{.State}}\t{{.Status}}\t{{.Ports}}"
+
+docker compose ls
+
+docker compose ls -a
+
+****************************************************
+*** 02-06 Reviewing more Docker Compose commands ***
+****************************************************
+
+https://docs.docker.com/reference/cli/docker/compose/
+
+cd development
+
+docker compose up -d
+
+docker compose images
+
+docker compose images -q
+
+docker compose build
+
+docker compose build --pull
+
+docker compose build --push
+
+docker compose build --no-cache
+
+docker compose build --build-arg WORDPRESS_SITE_NAME=”Shelley Benhoff’s Blog” --build-arg WORDPRESS_ADMIN_EMAIL=”shelley.benhoff@gmail.com”
+
+docker compose pull
+
+docker compose pull --ignore-buildable
+
+docker compose pull --include-deps
+
+docker compose pull --ignore-pull-failures
+
+docker compose pull -q
+
+docker compose push
+
+docker compose push --include-deps
+
+docker compose push --ignore-push-failures
+
+docker compose push -q
+
+docker compose create
+
+docker ps -a
+
+docker compose create --build
+
+docker compose create --no-build
+
+docker compose create --force-recreate
+
+docker compose create --no-recreate
+
+docker compose create --pull always
+
+docker compose create --pull missing
+
+docker compose create --pull never
+
+docker compose create --pull build
+
+docker compose create --quiet-pull
+
+docker compose run <service_name> <command>
+
+docker compose run wordpress bash
+
+docker compose run --rm wordpress bash
+
+docker compose run --remove-orphans wordpress bash
+
+docker compose run --build wordpress bash
+
+docker compose run -d wordpress bash
+
+docker compose run -e WORDPRESS_DB_PASSWORD=example wordpress bash
+
+docker compose run --name wordpress-test wordpress bash
+
+docker compose run --no-deps wordpress bash
+
+docker compose run --remove-orphans wordpress bash
+
+docker compose down
