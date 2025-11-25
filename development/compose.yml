@@ -2,6 +2,16 @@ services:
   wordpress:
     build:
       context: .
+      dockerfile: Dockerfile
+      args:
+        WORDPRESS_SITE_NAME: "My Awesome Blog"
+        WORDPRESS_SITE_EMAIL: "admin@example.com"
+      target: development
+      cache_from:
+        - wordpress:latest
+      labels:
+        maintainer: "Krishan Gordhan"
+        version: "1.0"
     ports:
       - "8080:80"
     environment:
