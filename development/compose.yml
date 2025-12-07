@@ -19,6 +19,8 @@ services:
       WORDPRESS_DB_USER: wp_user
       WORDPRESS_DB_PASSWORD: wp_password
       WORDPRESS_DB_NAME: wp_database
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
     
   db:
     image: mysql:latest
@@ -27,3 +29,8 @@ services:
       MYSQL_DATABASE: wp_database
       MYSQL_USER: wp_user
       MYSQL_PASSWORD: wp_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
