@@ -34,3 +34,7 @@ services:
 
 volumes:
   db_data:
+    labels:
+      com.example.description: "Wordpress db storage"
+      com.example.owner: "Krishan Gordhan"
+      com.example.environment: "Development"
