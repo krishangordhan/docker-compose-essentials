@@ -21,6 +21,9 @@ services:
       WORDPRESS_DB_NAME: wp_database
     volumes:
       - ./wp-content:/var/www/html/wp-content
+    networks:
+      wordpress_network:
+        ipv4_address: 192.168.1.2
     
   db:
     image: mysql:latest
@@ -31,6 +34,9 @@ services:
       MYSQL_PASSWORD: wp_password
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      wordpress_network:
+        ipv4_address: 192.168.1.3
 
 volumes:
   db_data:
@@ -38,3 +44,11 @@ volumes:
       com.example.description: "Wordpress db storage"
       com.example.owner: "Krishan Gordhan"
       com.example.environment: "Development"
+
+networks:
+  wordpress_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.1
